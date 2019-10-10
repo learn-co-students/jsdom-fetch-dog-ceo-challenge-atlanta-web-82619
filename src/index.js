@@ -25,8 +25,6 @@ function printdogs(j) {
     })
 }
 
-let breedList = {}
-
 function addDogBreeds() {
     const breedURL = 'https://dog.ceo/api/breeds/list/all';
 
@@ -34,7 +32,6 @@ function addDogBreeds() {
         .then(r => r.json())
         .then(j => {
             printdogs(j);
-            breedList = j.message;
         });
 }
 addDogBreeds();
