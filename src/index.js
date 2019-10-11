@@ -2,21 +2,25 @@ console.log('%c HI', 'color: firebrick')
 
 let breeds = []
 
-document.addEventListener("DOMContentLoaded", function(){
+document.addEventListener("DOMContentLoaded", () => {
     loadImages();
     loadBreeds()
     console.log("DOM loaded")
     const breedDropdown = document.querySelector("#breed-dropdown")
-    breedDropdown.addEventListener("change", function(){
-        const ul = document.querySelector("#dog-breeds")
-        while(ul.firstChild) {
-            ul.removeChild(ul.firstChild)
-        }
-        let letter = breedDropdown.value
-        let filteredBreeds = breeds.filter(breed => breed[0] === letter)
-        filteredBreeds.forEach(breed => addBreed(breed))
-    })
+    breedDropdown.addEventListener("change", e => sortBreeds(breeds, e.target.value))
 })
+
+function sortBreeds(arr, sorter) {
+    killChildren(document.querySelector("#dog-breeds"))
+    let filtered = arr.filter(breed => breed[0] === sorter)
+    filtered.forEach(breed => addBreed(breed))
+}
+
+function killChildren(parentNode) {
+    while(parentNode.firstChild) {
+        parentNode.removeChild(parentNode.firstChild)
+    }
+}
 
 function loadImages() {
     const imgUrl = "https://dog.ceo/api/breeds/image/random/4"
